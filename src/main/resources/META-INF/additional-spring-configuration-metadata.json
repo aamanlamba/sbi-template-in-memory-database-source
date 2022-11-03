@@ -1,0 +1,132 @@
+{"properties": [
+  {
+    "name": "trigger.api.username",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.username'"
+  },
+  {
+    "name": "trigger.collibra.workflow.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.collibra.workflow.enabled'"
+  },
+  {
+    "name": "trigger.api.password",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.password'"
+  },
+  {
+    "name": "trigger.collibra.workflow.polling-frequency.ms",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.collibra.workflow.polling-frequency.ms'"
+  },
+  {
+    "name": "trigger.collibra.workflow.user-task",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.collibra.workflow.user-task'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-expression",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-expression'"
+  },
+  {
+    "name": "tigger.api.scheduler-cron-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'tigger.api.scheduler-cron-enabled'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-referenceData",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-referenceData'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-referenceData-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-referenceData-enabled'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-dataQualityMetrics",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-dataQualityMetrics'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-dataQualityMetrics-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-dataQualityMetrics-enabled'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-systemsApplicationsDatabases",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-systemsApplicationsDatabases'"
+  },
+  {
+    "name": "trigger.api.scheduler-cron-systemsApplicationsDatabases-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'trigger.api.scheduler-cron-systemsApplicationsDatabases-enabled'"
+  },
+  {
+    "name": "collibra.url",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.url'"
+  },
+  {
+    "name": "collibra.username",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.username'"
+  },
+  {
+    "name": "collibra.password",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.password'"
+  },
+  {
+    "name": "query.select.reference.data.tables",
+    "type": "java.lang.String",
+    "description": "A description for 'query.select.reference.data.tables'"
+  },
+  {
+    "name": "talend.metrics.database.query.select",
+    "type": "java.lang.String",
+    "description": "A description for 'talend.metrics.database.query.select'"
+  },
+  {
+    "name": "query.select.schemasTablesColumns.data",
+    "type": "java.lang.String",
+    "description": "A description for 'query.select.schemasTablesColumns.data'"
+  },
+  {
+    "name": "query.select.systemsApplicationsDatabases.data",
+    "type": "java.lang.String",
+    "description": "A description for 'query.select.systemsApplicationsDatabases.data'"
+  },
+  {
+    "name": "collibra.domain.reference.data",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.domain.reference.data'"
+  },
+  {
+    "name": "collibra.community.talend.metrics",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.community.talend.metrics'"
+  },
+  {
+    "name": "collibra.community.schemasTablesColumns",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.community.schemasTablesColumns'"
+  },
+  {
+    "name": "collibra.domain.schemasTablesColumns",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.domain.schemasTablesColumns'"
+  },
+  {
+    "name": "collibra.domain.systemsApplicationsDatabases",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.domain.systemsApplicationsDatabases'"
+  },
+  {
+    "name": "collibra.community.systemsApplicationsDatabases",
+    "type": "java.lang.String",
+    "description": "A description for 'collibra.community.systemsApplicationsDatabases'"
+  }
+]}
