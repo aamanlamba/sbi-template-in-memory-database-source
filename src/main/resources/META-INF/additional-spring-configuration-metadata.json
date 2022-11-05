@@ -128,5 +128,10 @@
     "name": "collibra.community.systemsApplicationsDatabases",
     "type": "java.lang.String",
     "description": "A description for 'collibra.community.systemsApplicationsDatabases'"
+  },
+  {
+    "name": "query.select.schemasTables.data",
+    "type": "java.lang.String",
+    "description": "A description for 'query.select.schemasTables.data'"
   }
 ]}

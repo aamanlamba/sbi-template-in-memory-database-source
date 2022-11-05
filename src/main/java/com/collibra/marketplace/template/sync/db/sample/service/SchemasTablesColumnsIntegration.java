@@ -13,8 +13,10 @@ import com.collibra.marketplace.library.integration.CollibraAsset;
 import com.collibra.marketplace.library.integration.CollibraImportApiHelper;
 import com.collibra.marketplace.library.integration.constants.CollibraImportResponseType;
 import com.collibra.marketplace.library.integration.interfaces.ImportIntoCollibraFromExternalSystem;
+import com.collibra.marketplace.template.sync.db.sample.Application;
 import com.collibra.marketplace.template.sync.db.sample.component.ExtractionSchemasTablesColumns;
 import com.collibra.marketplace.template.sync.db.sample.component.TransformerSchemasTablesColumns;
+import com.collibra.marketplace.template.sync.db.sample.config.ApplicationConfig;
 
 @Component
 public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromExternalSystem {
@@ -23,15 +25,17 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
     private final CollibraImportApiHelper collibraImportApiHelper;
     private final TransformerSchemasTablesColumns schemasTablesColumnsTransformer;
     private final ExtractionSchemasTablesColumns extractionSchemasTablesColumns;
-
+    private final ApplicationConfig applicationConfig;
     @Autowired
     public SchemasTablesColumnsIntegration(
         CollibraImportApiHelper collibraImportApiHelper,
         TransformerSchemasTablesColumns schemasTablesColumnsTransformer,
-        ExtractionSchemasTablesColumns extractionSchemasTablesColumns) {
+        ExtractionSchemasTablesColumns extractionSchemasTablesColumns,
+        ApplicationConfig appConfig) {
         this.collibraImportApiHelper = collibraImportApiHelper;
         this.schemasTablesColumnsTransformer = schemasTablesColumnsTransformer;
         this.extractionSchemasTablesColumns = extractionSchemasTablesColumns;
+        this.applicationConfig = appConfig;
     }
 
     /**
@@ -42,14 +46,26 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
     public Object startIntegration(Object... input) {
 
         LOGGER.info("Started Synchronising SchemasTablesColumns");
-        // Extract
-        SqlRowSet codeValueList = readFromExternalSystem();
+        // Extract Schemas and Tables
+        String schemaQuery = applicationConfig.getSchemasTablesDbQuery();
+        SqlRowSet schemaSet = readFromExternalSystem(schemaQuery);
+        // Transform
+        List<CollibraAsset> schemaAssets = schemasTablesColumnsTransformer.transformSchemasTables(schemaSet);
+        //Load Schemas and Tables
+        UUID uuid2 = UUID.randomUUID();
+        importIntoCollibra(uuid2,schemaAssets);
+        collibraImportApiHelper.importAssets(uuid2,schemaAssets,CollibraImportResponseType.COUNTS);
+
+        // Extract Schemas, Tables and Columns
+        String schemasTablesColumnsQuery = applicationConfig.getSchemasTablesColumnsDbQuery();
+        SqlRowSet codeValueList = readFromExternalSystem(schemasTablesColumnsQuery);
         // Transform
         List<CollibraAsset> codeValueAssets = transformIntoCollibraImport(codeValueList);
         // Load
         importIntoCollibra(input[0], codeValueAssets);
+        LOGGER.info("Number of assets:"+codeValueAssets.size());
         collibraImportApiHelper.importAssets(
-            (UUID) input[0], codeValueAssets, CollibraImportResponseType.COUNTS);
+            (UUID) input[0], codeValueAssets, CollibraImportResponseType.COUNTS,10000); // the batch size seems to ensure all objects are imported correctly
         LOGGER.info("Finished Synchronising Systems Applications Databases");
         return null;
     }
@@ -59,7 +75,7 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
      */
     @Override
     public SqlRowSet readFromExternalSystem(Object... readInput) {
-        return extractionSchemasTablesColumns.read();
+        return extractionSchemasTablesColumns.readData((String)readInput[0]);
     }
 
     /**

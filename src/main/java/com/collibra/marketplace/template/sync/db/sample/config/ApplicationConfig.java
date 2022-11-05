@@ -63,4 +63,7 @@ public class ApplicationConfig {
     @Value("${collibra.community.schemasTablesColumns}")
     private String schemasTablesColumnsCommunity;
 
+    @Value("${query.select.schemasTables.data}")
+    private String schemasTablesDbQuery;
+
 }

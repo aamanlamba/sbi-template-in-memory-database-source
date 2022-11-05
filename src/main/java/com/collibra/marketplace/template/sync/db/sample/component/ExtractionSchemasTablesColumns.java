@@ -22,17 +22,16 @@ public class ExtractionSchemasTablesColumns {
         this.appConfig = appConfig;
         this.jdbcTemplate = jdbcTemplate;
     }
-
     /**
      * Extract the information of the 'Systems-Applications-Databases' from the database.
      *
      * @return SqlRowSet Data returned by the database for the performed SQL query.
      */
-    public SqlRowSet read() {
-        LOGGER.debug("Starting Execution of Select SchemasTablesColumns query");
-        String sqlQuery = appConfig.getSchemasTablesColumnsDbQuery();
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(sqlQuery);
-        LOGGER.debug("Finished Execution of Select Systems-Applications-Databases query");
+    public SqlRowSet readData(String query){
+        LOGGER.info("Starting Execution of query: "+ query);
+       
+        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(query);
+        LOGGER.info("Finished execution of query");
         return resultSet;
     }
 }
