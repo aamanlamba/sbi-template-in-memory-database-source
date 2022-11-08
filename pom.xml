@@ -14,7 +14,7 @@
     <artifactId>in-memory-database-to-collibra-integration</artifactId>
     <version>1.0.1</version>
     <name>in-memory-database-to-collibra-integration</name>
-    <description>Collibra template showing how to sync database metadata into Collibra</description>
+    <description>Collibra template showing how to sync database metadata into Collibra - SQL</description>
 
     <properties>
         <java.version>1.8</java.version>
