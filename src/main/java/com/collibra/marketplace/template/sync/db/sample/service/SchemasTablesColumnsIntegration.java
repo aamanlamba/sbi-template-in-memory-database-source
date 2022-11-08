@@ -13,7 +13,6 @@ import com.collibra.marketplace.library.integration.CollibraAsset;
 import com.collibra.marketplace.library.integration.CollibraImportApiHelper;
 import com.collibra.marketplace.library.integration.constants.CollibraImportResponseType;
 import com.collibra.marketplace.library.integration.interfaces.ImportIntoCollibraFromExternalSystem;
-import com.collibra.marketplace.template.sync.db.sample.Application;
 import com.collibra.marketplace.template.sync.db.sample.component.ExtractionSchemasTablesColumns;
 import com.collibra.marketplace.template.sync.db.sample.component.TransformerSchemasTablesColumns;
 import com.collibra.marketplace.template.sync.db.sample.config.ApplicationConfig;
@@ -45,9 +44,9 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
      */
     public Object startIntegration(Object... input) {
 
-        LOGGER.info("Started Synchronising SchemasTablesColumns");
+        LOGGER.info("Started Synchronising SchemasTablesColumns for db: "+ input[1]);
         // Extract Schemas and Tables
-        String schemaQuery = applicationConfig.getSchemasTablesDbQuery();
+/*        String schemaQuery = applicationConfig.getSchemasTablesDbQuery();
         SqlRowSet schemaSet = readFromExternalSystem(schemaQuery);
         // Transform
         List<CollibraAsset> schemaAssets = schemasTablesColumnsTransformer.transformSchemasTables(schemaSet);
@@ -55,10 +54,10 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
         UUID uuid2 = UUID.randomUUID();
         importIntoCollibra(uuid2,schemaAssets);
         collibraImportApiHelper.importAssets(uuid2,schemaAssets,CollibraImportResponseType.COUNTS);
-
+*/
         // Extract Schemas, Tables and Columns
         String schemasTablesColumnsQuery = applicationConfig.getSchemasTablesColumnsDbQuery();
-        SqlRowSet codeValueList = readFromExternalSystem(schemasTablesColumnsQuery);
+        SqlRowSet codeValueList = readFromExternalSystem(schemasTablesColumnsQuery,input[1]);
         // Transform
         List<CollibraAsset> codeValueAssets = transformIntoCollibraImport(codeValueList);
         // Load
@@ -75,7 +74,7 @@ public class SchemasTablesColumnsIntegration implements ImportIntoCollibraFromEx
      */
     @Override
     public SqlRowSet readFromExternalSystem(Object... readInput) {
-        return extractionSchemasTablesColumns.readData((String)readInput[0]);
+        return extractionSchemasTablesColumns.readData((String)readInput[0], (String)readInput[1]);
     }
 
     /**

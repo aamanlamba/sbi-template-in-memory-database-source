@@ -38,7 +38,7 @@ public class ScheduledProcess {
     public void syncSystemsApplicationsDatabasesTriggeredByScheduler() {
         if (appConfig.isSchedulerCronSystemsApplicationsDatabasesEnabled()) {
             LOGGER.debug("Sync Systems Applications Databases triggered by Scheduler");
-            integrationProcessorService.start(CustomConstants.IntegrationType.SYSTEMS_APPLICATION);
+            integrationProcessorService.start(CustomConstants.IntegrationType.SYSTEMS_APPLICATION,"");
         }
     }
 
@@ -49,7 +49,7 @@ public class ScheduledProcess {
     public void syncDataQualityMetricsTriggeredByScheduler() {
         if (appConfig.isSchedulerCronDataQualityMetricsEnabled()) {
             LOGGER.debug("sync data quality metrics triggered by Scheduler");
-            integrationProcessorService.start(CustomConstants.IntegrationType.DATA_QUALITY_METRICS);
+            integrationProcessorService.start(CustomConstants.IntegrationType.DATA_QUALITY_METRICS,"");
         }
     }
 
@@ -60,7 +60,7 @@ public class ScheduledProcess {
     public void syncReferenceDataTriggeredByScheduler() {
         if (appConfig.isSchedulerCronReferenceDataEnabled()) {
             LOGGER.debug("Sync reference data triggered by Scheduler");
-            integrationProcessorService.start(CustomConstants.IntegrationType.REFERENCE_DATA);
+            integrationProcessorService.start(CustomConstants.IntegrationType.REFERENCE_DATA,"");
         }
     }
 
@@ -71,7 +71,7 @@ public class ScheduledProcess {
     public void syncAllProcessesTriggeredByScheduler() {
         if (appConfig.isSchedulerCronEnabled()) {
             LOGGER.debug("Sync all processes triggered by Scheduler");
-            integrationProcessorService.start(CustomConstants.IntegrationType.ALL);
+            integrationProcessorService.start(CustomConstants.IntegrationType.ALL,"");
         }
     }
 }

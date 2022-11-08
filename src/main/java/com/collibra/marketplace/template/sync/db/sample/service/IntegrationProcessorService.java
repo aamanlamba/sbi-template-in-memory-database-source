@@ -20,11 +20,6 @@ public class IntegrationProcessorService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationProcessorService.class);
     private final CollibraImportApiHelper collibraImportApiHelper;
-    private final ReferenceDataIntegration referenceDataIntegration;
-    private final DataQualityMetricsIntegration
-        dataQualityMetricsIntegration;
-    private final SystemsApplicationsIntegration
-        systemsApplicationsIntegration;
     private final SchemasTablesColumnsIntegration
         schemasTablesColumnsIntegration;
     private final Object lock = new Object();
@@ -32,19 +27,9 @@ public class IntegrationProcessorService {
     @Autowired
     public IntegrationProcessorService(
         CollibraImportApiHelper collibraImportApiHelper,
-        ReferenceDataIntegration referenceDataIntegration,
-        DataQualityMetricsIntegration
-            dataQualityMetricsIntegration,
-        SystemsApplicationsIntegration
-            systemsApplicationsIntegration,
         SchemasTablesColumnsIntegration
             schemasTablesColumnsIntegration) {
         this.collibraImportApiHelper = collibraImportApiHelper;
-        this.referenceDataIntegration = referenceDataIntegration;
-        this.dataQualityMetricsIntegration =
-            dataQualityMetricsIntegration;
-        this.systemsApplicationsIntegration =
-            systemsApplicationsIntegration;
         this.schemasTablesColumnsIntegration =
             schemasTablesColumnsIntegration;
     }
@@ -53,29 +38,18 @@ public class IntegrationProcessorService {
      * Main method used to synchronize the metadata.
      *
      * @param integrationType Enum representing which integration to be triggered
+     * @param dbName
      */
-    public String start(CustomConstants.IntegrationType integrationType) {
+    public String start(CustomConstants.IntegrationType integrationType, String dbName) {
         synchronized (lock) {
             LOGGER.info("Started synchronizing the metadata");
             UUID uuid = UUID.randomUUID();
 
             switch (integrationType) {
-                case REFERENCE_DATA:
-                    referenceDataIntegration.startIntegration(uuid);
-                    break;
-                case DATA_QUALITY_METRICS:
-                    dataQualityMetricsIntegration.startIntegration(uuid);
-                    break;
-                case SYSTEMS_APPLICATION:
-                    systemsApplicationsIntegration.startIntegration(uuid);
-                    break;
                 case SCHEMAS_TABLES_COLUMNS:
-                    schemasTablesColumnsIntegration.startIntegration(uuid);
+                    schemasTablesColumnsIntegration.startIntegration(uuid,dbName);
                     break;
                 default:
-                    referenceDataIntegration.startIntegration(uuid);
-                    dataQualityMetricsIntegration.startIntegration(uuid);
-                    systemsApplicationsIntegration.startIntegration(uuid);
                     break;
             }
 
