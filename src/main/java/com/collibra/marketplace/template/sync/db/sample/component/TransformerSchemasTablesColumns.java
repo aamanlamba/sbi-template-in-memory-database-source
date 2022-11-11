@@ -31,13 +31,16 @@ public class TransformerSchemasTablesColumns {
         LOGGER.info("Starting transformation of Schemas and Tables");
         List<CollibraAsset> schemasTablesAssets = new ArrayList<>();
         while (schemasTablesList.next()){
+            String dbName = schemasTablesList.getString("db_name");
             String schemaName = schemasTablesList.getString("schema_name");
             String tableName = schemasTablesList.getString("table_name");
             String collibraDomainName = appConfig.getSchemasTablesColumnsDomain();
             String collibraCommunityName = appConfig.getSchemasTablesColumnsCommunity();
 
+            //TO-DO: Create application for Database
+
             CollibraAsset schemaAsset = new CollibraAsset.Builder()
-                                                .name(schemaName)
+                                                .name(dbName+"."+schemaName)
                                                 .typeName("Schema")
                                                 .domainNameAndCommunityName(
                                                    collibraDomainName,collibraCommunityName)
@@ -45,14 +48,14 @@ public class TransformerSchemasTablesColumns {
                                                 .build();
 
             CollibraAsset tableAsset = new CollibraAsset.Builder()
-                                                    .name(tableName)
+                                                    .name(dbName+"."+schemaName+"."+tableName)
                                                     .typeName("Table")
                                                     .domainNameAndCommunityName(
                                                         collibraDomainName,collibraCommunityName)
                                                     .status(CollibraConstants.Status.CANDIDATE)
                                                     .addRelation(CollibraConstants.RelationType.SCHEMA_CONTAINS_TABLE,CollibraRelation.Direction.SOURCE, 
                                                       new CollibraRelation.Builder()
-                                                            .relatedAssetName(schemaName)
+                                                            .relatedAssetName(dbName+"."+schemaName)
                                                             .relatedAssetByDomainNameAndCommunityName
                                                                 (collibraDomainName, collibraCommunityName)
                                                             .build())
@@ -73,6 +76,7 @@ public class TransformerSchemasTablesColumns {
         List<CollibraAsset> codeValueAssets = new ArrayList<>();
         while (codeValueList.next()) {
             //iterate schemas
+            String dbName = codeValueList.getString("db_name");
             String schemaName = codeValueList.getString("schema_name");
             String tableName = codeValueList.getString("table_name");
             String columnName = codeValueList.getString("column_name");
@@ -82,7 +86,7 @@ public class TransformerSchemasTablesColumns {
             String collibraDomainName = appConfig.getSchemasTablesColumnsDomain();
             String collibraCommunityName = appConfig.getSchemasTablesColumnsCommunity();
             CollibraAsset schemaAsset = new CollibraAsset.Builder()
-                                                .name(schemaName)
+                                                .name(dbName+"."+schemaName)
                                                 .type(CollibraConstants.AssetType.SCHEMA)
                                                 .domainNameAndCommunityName(
                                                    collibraDomainName,collibraCommunityName)
@@ -90,21 +94,21 @@ public class TransformerSchemasTablesColumns {
                                                 .build();
 
             CollibraAsset tableAsset = new CollibraAsset.Builder()
-                                                    .name(tableName)
+                                                    .name(dbName+"."+schemaName+"."+tableName)
                                                     .type(CollibraConstants.AssetType.TABLE)
                                                     .domainNameAndCommunityName(
                                                         collibraDomainName,collibraCommunityName)
                                                     .status(CollibraConstants.Status.CANDIDATE)
                                                     .addRelation(CollibraConstants.RelationType.SCHEMA_CONTAINS_TABLE,CollibraRelation.Direction.SOURCE, 
                                                       new CollibraRelation.Builder()
-                                                            .relatedAssetName(schemaName)
+                                                            .relatedAssetName(dbName+"."+schemaName)
                                                             .relatedAssetByDomainNameAndCommunityName
                                                                 (collibraDomainName, collibraCommunityName)
                                                             .build())
                                                     .build();
             // @formatter:off
             CollibraAsset columnAsset =    new CollibraAsset.Builder()
-                    .name(columnName)
+                    .name(dbName+"."+schemaName+"."+tableName+"."+columnName)
                     .type(CollibraConstants.AssetType.COLUMN)
                     .domainNameAndCommunityName(
                         collibraDomainName,collibraCommunityName)
@@ -114,7 +118,7 @@ public class TransformerSchemasTablesColumns {
                     .addRelation(CollibraConstants.RelationType.COLUMN_ISPARTOF_TABLE,
                                                 CollibraRelation.Direction.TARGET, 
                                                     new CollibraRelation.Builder()
-                                                            .relatedAssetName(tableName)
+                                                            .relatedAssetName(dbName+"."+schemaName+"."+tableName)
                                                             .relatedAssetByDomainNameAndCommunityName
                                                                 (collibraDomainName, collibraCommunityName)
                                                             .build())
