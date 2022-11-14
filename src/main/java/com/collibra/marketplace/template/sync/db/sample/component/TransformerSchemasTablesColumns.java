@@ -66,23 +66,23 @@ public class TransformerSchemasTablesColumns {
         return schemasTablesAssets;
     }
     /**
-     * Transform each element on codeValueList to its corresponding Asset.
+     * Transform each element on sqlResultList to its corresponding Asset.
      *
-     * @param codeValueList SqlRowSet
+     * @param sqlResultList SqlRowSet
      * @return List of CollibraAsset.
      */
-    public List<CollibraAsset> transformAssets(SqlRowSet codeValueList) {
+    public List<CollibraAsset> transformAssets(SqlRowSet sqlResultList) {
         LOGGER.debug("Starting Transformation ofTransformerSchemasTablesColumns to Collibra Assets");
-        List<CollibraAsset> codeValueAssets = new ArrayList<>();
-        while (codeValueList.next()) {
+        List<CollibraAsset> collibraAssets = new ArrayList<>();
+        while (sqlResultList.next()) {
             //iterate schemas
-            String dbName = codeValueList.getString("db_name");
-            String schemaName = codeValueList.getString("schema_name");
-            String tableName = codeValueList.getString("table_name");
-            String columnName = codeValueList.getString("column_name");
-            String columnDataType = codeValueList.getString("data_type");
-            Integer columnMaxLength = Integer.parseInt(codeValueList.getString("max_length"));
-            Integer columnPrecision = Integer.parseInt(codeValueList.getString("precision"));
+            String dbName = sqlResultList.getString("db_name");
+            String schemaName = sqlResultList.getString("schema_name");
+            String tableName = sqlResultList.getString("table_name");
+            String columnName = sqlResultList.getString("column_name");
+            String columnDataType = sqlResultList.getString("data_type");
+            Integer columnMaxLength = Integer.parseInt(sqlResultList.getString("MAX_LENGTH"));
+            Integer columnPrecision = 2;//Integer.parseInt(sqlResultList.getString("PRECISION"));
             String collibraDomainName = appConfig.getSchemasTablesColumnsDomain();
             String collibraCommunityName = appConfig.getSchemasTablesColumnsCommunity();
             CollibraAsset schemaAsset = new CollibraAsset.Builder()
@@ -125,11 +125,11 @@ public class TransformerSchemasTablesColumns {
                     .status(CollibraConstants.Status.CANDIDATE)
                     .build();
             // @formatter:on
-            codeValueAssets.add(schemaAsset);
-            codeValueAssets.add(tableAsset);
-            codeValueAssets.add(columnAsset);
+            collibraAssets.add(schemaAsset);
+            collibraAssets.add(tableAsset);
+            collibraAssets.add(columnAsset);
         }
         LOGGER.debug("Finished Transformation of Systems-Applications to Collibra Assets");
-        return codeValueAssets;
+        return collibraAssets;
     }
 }

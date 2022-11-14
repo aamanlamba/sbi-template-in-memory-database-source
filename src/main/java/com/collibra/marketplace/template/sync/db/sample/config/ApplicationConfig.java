@@ -66,4 +66,6 @@ public class ApplicationConfig {
     @Value("${query.select.schemasTables.data}")
     private String schemasTablesDbQuery;
 
+    @Value("${query.select.orcSchemas.data}")
+    private String orcSchemasDBQuery;
 }

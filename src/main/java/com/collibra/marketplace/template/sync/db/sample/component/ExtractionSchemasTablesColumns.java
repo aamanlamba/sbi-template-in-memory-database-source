@@ -22,13 +22,15 @@ public class ExtractionSchemasTablesColumns {
 
     private final JdbcTemplate pubsJdbcTemplate;
     private final JdbcTemplate nwJdbcTemplate;
+    private final JdbcTemplate orcJdbcTemplate;
 
     @Autowired
     public ExtractionSchemasTablesColumns(ApplicationConfig appConfig,  
-                        JdbcTemplate pubsJdbcTemplate, JdbcTemplate nwJdbcTemplate) {
+                        JdbcTemplate pubsJdbcTemplate, JdbcTemplate nwJdbcTemplate, JdbcTemplate orcJdbcTemplate) {
         this.appConfig = appConfig;
         this.pubsJdbcTemplate = pubsJdbcTemplate;
         this.nwJdbcTemplate = nwJdbcTemplate;
+        this.orcJdbcTemplate = orcJdbcTemplate;
     }
     /**
      * Extract the information of the 'Systems-Applications-Databases' from the database.
@@ -45,6 +47,11 @@ public class ExtractionSchemasTablesColumns {
                 break;
             case "nw":
                 resultSet = nwJdbcTemplate.queryForRowSet(query);
+                break;
+            case "orc":
+                query =appConfig.getOrcSchemasDBQuery();
+                LOGGER.info("Oracle Query: "+query);
+                resultSet = orcJdbcTemplate.queryForRowSet(query);
                 break;
             default:
                 resultSet = null;

@@ -19,7 +19,6 @@ public class DataSourceConfig {
 
     @Bean
     @Qualifier("pubsDataSource")
-    @Primary
     @ConfigurationProperties(prefix="pubs.datasource")
     DataSource pubsDataSource(){
         return DataSourceBuilder.create().build();
@@ -42,5 +41,19 @@ public class DataSourceConfig {
     @Qualifier("nwJdbcTemplate")
     JdbcTemplate nwJdbcTemplate(@Qualifier("nwDataSource")DataSource nwDataSource) {
         return new JdbcTemplate(nwDataSource);
+    }
+
+    @Bean
+    @Qualifier("orcDataSource")
+    @Primary
+    @ConfigurationProperties(prefix="orc.datasource")
+    DataSource orcDataSource(){
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @Qualifier("orcJdbcTemplate")
+    JdbcTemplate orcJdbcTemplate(@Qualifier("orcDataSource")DataSource orcDataSource) {
+        return new JdbcTemplate(orcDataSource);
     }
 }
