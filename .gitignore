@@ -34,3 +34,4 @@ build/
 *.log
 src/main/resources/application.properties
 pom.xml
+src/main/resources/application.properties
